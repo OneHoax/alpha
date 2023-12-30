@@ -1,15 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Db } from 'mongodb';
 
 @Injectable()
 export class UsersService {
+  constructor(@Inject('MONGO_CONNECTION') private readonly db: Db) {}
+
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    return await this.db.collection('users').find().toArray();
   }
 
   findOne(id: number) {

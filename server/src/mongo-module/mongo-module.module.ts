@@ -19,4 +19,4 @@ import { Db, MongoClient, MongoNotConnectedError } from 'mongodb';
   ],
   exports: ['MONGO_CONNECTION'],
 })
-export class MongoModuleModule {}
+export class MongoModule {}
