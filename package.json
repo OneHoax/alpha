@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "BSD-4-Clause",
   "dependencies": {
     "@nestjs/cli": "^10.2.1"
   }
