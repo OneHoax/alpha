@@ -23,7 +23,7 @@
 - Back-end:
   - MongoDB
   - NestJS
-    Front-end:
+- Front-end:
   - Angular
   - PrimeNG
   - PrimeFlex
