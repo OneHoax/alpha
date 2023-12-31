@@ -1,0 +1,15 @@
+{
+  "name": "alpha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "BSD-4-Clause",
+  "dependencies": {
+    "@nestjs/cli": "^10.2.1"
+  }
+}
