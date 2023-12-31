@@ -17,3 +17,13 @@
   - Data such as "gym sessions" and "tests" to be visualized through graphs (progress over time)
 
 - Schedule sessions through calendar
+
+### Tech Stack
+
+- Back-end:
+  - MongoDB
+  - NestJS
+    Front-end:
+  - Angular
+  - PrimeNG
+  - PrimeFlex
