@@ -23,6 +23,8 @@ db.createUser({
 
 // ======================= Roles ===========================
 
+db.createCollection("roles");
+/*
 db.createCollection(process.env.ROLES_COLLECTION, {
   validator: {
     $jsonSchema: {
@@ -55,11 +57,14 @@ db[process.env.ROLES_COLLECTION].createIndex(
   { code_name: 1 },
   { unique: true }
 );
+*/
 
-db[process.env.ROLES_COLLECTION].insertMany([
+db.roles.createIndex({ code_name: 1 }, { unique: true });
+
+db.roles.insertMany([
   {
     code_name: "admin",
-    ui_name: "Administrator",
+    ui_name: "Administrador",
     created_at: new Date(),
     updated_at: new Date(),
   },
@@ -69,10 +74,42 @@ db[process.env.ROLES_COLLECTION].insertMany([
     created_at: new Date(),
     updated_at: new Date(),
   },
+  {
+    code_name: "sports_professional",
+    ui_name: "Profesional del Deporte",
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    code_name: "physio",
+    ui_name: "Fisioterapeuta",
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    code_name: "client",
+    ui_name: "Cliente",
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    code_name: "injured",
+    ui_name: "Lesionado",
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    code_name: "athlete",
+    ui_name: "Deportista",
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
 ]);
 
 // ======================= Users ===========================
 
+db.createCollection("users");
+/*
 db.createCollection(process.env.USERS_COLLECTION, {
   validator: {
     $jsonSchema: {
@@ -133,27 +170,41 @@ db.createCollection(process.env.USERS_COLLECTION, {
     },
   },
 });
+*/
 
-db[process.env.USERS_COLLECTION].createIndex(
-  { government_id: 1 },
-  { unique: true }
-);
+db.users.createIndex({ government_id: 1 }, { unique: true });
 
-const adminRole = db[process.env.ROLES_COLLECTION].findOne({
+db.users.createIndex({ email: 1 }, { unique: true });
+
+const adminRole = db.roles.findOne({
   code_name: "admin",
 });
+const trainerRole = db.roles.findOne({
+  code_name: "trainer",
+});
 
-db[process.env.USERS_COLLECTION].insertMany([
+db.users.insertMany([
   {
     given_names: "andres",
     last_names: "osorio",
     government_id: "12345",
-    email: "some@email.com",
+    email: "andres@email.com",
     cell_phone_number: "123-345-6789",
     dob: new Date("1991-02-15"),
+    role: adminRole,
     created_at: new Date(),
     updated_at: new Date(),
-    role: adminRole,
+  },
+  {
+    given_names: "mauro",
+    last_names: "solano",
+    government_id: "812343",
+    email: "mauro@email.com",
+    cell_phone_number: "123-345-6789",
+    dob: new Date("1989-05-11"),
+    role: trainerRole,
+    created_at: new Date(),
+    updated_at: new Date(),
   },
 ]);
 

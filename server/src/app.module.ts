@@ -3,9 +3,10 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { MongoModule } from "./mongo-module/mongo-module.module";
 import { UsersModule } from "./users/users.module";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
-  imports: [MongoModule, UsersModule],
+  imports: [ConfigModule.forRoot(), MongoModule, UsersModule],
   controllers: [AppController],
   providers: [AppService],
 })

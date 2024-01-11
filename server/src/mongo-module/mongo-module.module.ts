@@ -8,10 +8,12 @@ import { Db, MongoClient, MongoNotConnectedError } from "mongodb";
       useFactory: async (): Promise<Db> => {
         try {
           const client: MongoClient = await MongoClient.connect(
-            "mongodb://admin:pass@localhost:27017/",
+            // "mongodb://admin:pass@localhost:27017/",
+            "mongodb://admin:pass@0.0.0.0:27017/",
           );
           return client.db("alpha");
         } catch (e: unknown) {
+          console.log(e);
           throw new MongoNotConnectedError("Could not connect to MongoDB");
         }
       },
