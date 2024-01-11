@@ -9,7 +9,8 @@ import { Db, MongoClient, MongoNotConnectedError } from "mongodb";
         try {
           const client: MongoClient = await MongoClient.connect(
             // "mongodb://admin:pass@localhost:27017/",
-            "mongodb://admin:pass@0.0.0.0:27017/",
+            // "mongodb://admin:pass@0.0.0.0:27017/",
+            "mongodb://admin:pass@127.0.0.1:27017/",
           );
           return client.db("alpha");
         } catch (e: unknown) {
