@@ -1,7 +1,8 @@
 import { CreateUserDto } from "@app/entity/users/dto/create-user.dto";
 import { UpdateUserDto } from "@app/entity/users/dto/update-user.dto";
+import { IUserDoc } from "@app/entity/users/interface/user-doc.interface";
 import { Inject, Injectable } from "@nestjs/common";
-import { Db } from "mongodb";
+import { Db, ObjectId } from "mongodb";
 
 @Injectable()
 export class UsersService {
@@ -11,12 +12,14 @@ export class UsersService {
     return "This action adds a new user";
   }
 
-  async findAll() {
-    return await this.db.collection("users").find().toArray();
+  findAll() {
+    return this.db.collection("users").find().toArray();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string): Promise<IUserDoc> {
+    return await this.db
+      .collection("users")
+      .findOne<IUserDoc>({ _id: new ObjectId(id) });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
