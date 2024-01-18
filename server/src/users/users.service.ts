@@ -1,6 +1,6 @@
+import { CreateUserDto } from "@app/users/dto/create-user.dto";
+import { UpdateUserDto } from "@app/users/dto/update-user.dto";
 import { Inject, Injectable } from "@nestjs/common";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
 import { Db } from "mongodb";
 
 @Injectable()
