@@ -1,6 +1,6 @@
-import { CreateUserDto } from "@app/users/dto/create-user.dto";
-import { UpdateUserDto } from "@app/users/dto/update-user.dto";
-import { UsersService } from "@app/users/users.service";
+import { CreateUserDto } from "@app/entity/users/dto/create-user.dto";
+import { UpdateUserDto } from "@app/entity/users/dto/update-user.dto";
+import { UsersService } from "@app/entity/users/service/users.service";
 import {
   Controller,
   Get,

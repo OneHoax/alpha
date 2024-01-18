@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Logger, Module } from "@nestjs/common";
 import { Db, MongoClient, MongoNotConnectedError } from "mongodb";
 
 @Module({
@@ -8,14 +8,11 @@ import { Db, MongoClient, MongoNotConnectedError } from "mongodb";
       useFactory: async (): Promise<Db> => {
         try {
           const client: MongoClient = await MongoClient.connect(
-            // "mongodb://admin:pass@localhost:27017/",
-            // "mongodb://admin:pass@0.0.0.0:27017/",
-            // "mongodb://admin:pass@127.0.0.1:27017/",
             process.env.MONGO_URI,
           );
-          return client.db("alpha");
+          return client.db(process.env.MONGO_DB);
         } catch (e: unknown) {
-          console.log(e);
+          Logger.error(`Could not connect to MongoDB: ${e}`, MongoModule.name);
           throw new MongoNotConnectedError("Could not connect to MongoDB");
         }
       },
