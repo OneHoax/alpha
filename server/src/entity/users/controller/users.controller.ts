@@ -1,6 +1,6 @@
-import { CreateUserDto } from "@app/entity/users/dto/create-user.dto";
-import { UpdateUserDto } from "@app/entity/users/dto/update-user.dto";
-import { UsersService } from "@app/entity/users/service/users.service";
+import { CreateUserDto } from "src/entity/users/dto/create-user.dto";
+import { UpdateUserDto } from "src/entity/users/dto/update-user.dto";
+import { UsersService } from "src/entity/users/service/users.service";
 import {
   Controller,
   Get,
@@ -10,8 +10,12 @@ import {
   Param,
   Delete,
 } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
-@Controller("users")
+const controllerName = "users";
+
+@ApiTags(controllerName)
+@Controller(controllerName)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -30,13 +34,13 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  @Patch(":id")
-  update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
-  }
+  // @Patch(":id")
+  // update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
+  //   return this.usersService.update(+id, updateUserDto);
+  // }
 
-  @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.usersService.remove(+id);
-  }
+  // @Delete(":id")
+  // remove(@Param("id") id: string) {
+  //   return this.usersService.remove(+id);
+  // }
 }

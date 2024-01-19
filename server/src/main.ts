@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { ConfigService } from "@nestjs/config";
-import { AppModule } from "@app/app/app.module";
-import { EnvEnum } from "@app/shared/enum/env.enum";
+import { AppModule } from "src/app/app.module";
+import { EnvEnum } from "src/shared/enum/env.enum";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { Logger } from "@nestjs/common";
 

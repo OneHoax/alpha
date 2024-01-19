@@ -1,4 +1,4 @@
-import { IBaseDoc } from "@app/shared/mongo/interface/base-doc";
+import { IBaseDoc } from "src/shared/mongo/interface/base-doc";
 
 export interface IUserDoc extends IBaseDoc {
   readonly givenNames: string;
@@ -7,7 +7,6 @@ export interface IUserDoc extends IBaseDoc {
   readonly email: string;
   readonly cellPhoneNumber: string;
   readonly dob: Date;
-  // readonly superUser: boolean;
   readonly role: {
     $ref: string;
     $id: string;

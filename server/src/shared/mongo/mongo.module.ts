@@ -1,10 +1,11 @@
 import { Logger, Module } from "@nestjs/common";
 import { Db, MongoClient, MongoNotConnectedError } from "mongodb";
+import { ConstatantEnum } from "src/shared/enum/constant.enum";
 
 @Module({
   providers: [
     {
-      provide: "MONGO_CONNECTION",
+      provide: ConstatantEnum.MONGO_CONNECTION,
       useFactory: async (): Promise<Db> => {
         try {
           const client: MongoClient = await MongoClient.connect(
@@ -18,6 +19,6 @@ import { Db, MongoClient, MongoNotConnectedError } from "mongodb";
       },
     },
   ],
-  exports: ["MONGO_CONNECTION"],
+  exports: [ConstatantEnum.MONGO_CONNECTION],
 })
 export class MongoModule {}

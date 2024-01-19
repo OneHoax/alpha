@@ -1,0 +1,4 @@
+export enum ConstatantEnum {
+  MONGO_CONNECTION = "MONGO_CONNECTION",
+  USER_REPOSITORY = "USER_REPOSITORY",
+}

@@ -13,11 +13,11 @@ db.createCollection(process.env.ROLES_COLLECTION, {
     $jsonSchema: {
       bsonType: "object",
       title: "Role Object Validation",
-      required: ["code_name", "ui_name", "created_at", "updated_at"],
+      required: ["codeName", "ui_name", "created_at", "updated_at"],
       properties: {
-        code_name: {
+        codeName: {
           bsonType: "string",
-          description: getFieldDescription("code_name", "string"),
+          description: getFieldDescription("codeName", "string"),
         },
         ui_name: {
           bsonType: "string",
@@ -37,11 +37,11 @@ db.createCollection(process.env.ROLES_COLLECTION, {
 });
 
 db[process.env.ROLES_COLLECTION].createIndex(
-  { code_name: 1 },
+  { codeName: 1 },
   { unique: true }
 );
 */
-db.roles.createIndex({ code_name: 1 }, { unique: true });
+db.roles.createIndex({ codeName: 1 }, { unique: true });
 
 // ======================= Users ===========================
 
@@ -55,7 +55,7 @@ db.createCollection("users");
 //       required: [
 //         "given_names",
 //         "last_names",
-//         "government_id",
+//         "governmentId",
 //         "email",
 //         "cell_phone_number",
 //         "dob",
@@ -71,9 +71,9 @@ db.createCollection("users");
 //           bsonType: "string",
 //           description: getFieldDescription("last_names", "string"),
 //         },
-//         government_id: {
+//         governmentId: {
 //           bsonType: "string",
-//           description: getFieldDescription("government_id", "string"),
+//           description: getFieldDescription("governmentId", "string"),
 //         },
 //         email: {
 //           bsonType: "string",
@@ -109,7 +109,7 @@ db.createCollection("users");
 // });
 // */
 
-db.users.createIndex({ government_id: 1 }, { unique: true });
+db.users.createIndex({ governmentId: 1 }, { unique: true });
 db.users.createIndex({ email: 1 }, { unique: true });
 
 /*
