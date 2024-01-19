@@ -1,6 +1,6 @@
-import { IUserDoc } from "src/entity/users/interface/user-doc.interface";
+import { IUser } from "src/entity/users/interface/user.interface";
 
 export interface IUserRepository {
-  findOne(id: string): Promise<IUserDoc>;
-  findAll(): Promise<any>;
+  findOne(id: string): Promise<IUser>;
+  findAll(): Promise<IUser[]>;
 }

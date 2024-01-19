@@ -3,10 +3,12 @@ import { ConfigService } from "@nestjs/config";
 import { AppModule } from "src/app/app.module";
 import { EnvEnum } from "src/shared/enum/env.enum";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
-import { Logger } from "@nestjs/common";
+import { Logger, ValidationPipe } from "@nestjs/common";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalPipes(new ValidationPipe());
 
   const globalPrefix: string = "api";
   app.setGlobalPrefix(globalPrefix);

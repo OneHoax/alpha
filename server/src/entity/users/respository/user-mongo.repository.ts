@@ -1,18 +1,18 @@
 import { Inject } from "@nestjs/common";
 import { Db } from "mongodb";
-import { IUserDoc } from "src/entity/users/interface/user-doc.interface";
+import { IUser } from "src/entity/users/interface/user.interface";
 import { IUserRepository } from "src/entity/users/interface/user.repostiroy.interface";
+import { EntityEnum } from "src/shared/entity/enum/entity.enum";
 import { ConstatantEnum } from "src/shared/enum/constant.enum";
-import { EntityEnum } from "src/shared/enum/entity.enum";
 import { MongoRepository } from "src/shared/mongo/repository/mongo.repository";
 
 export class UserMongoRepository
-  extends MongoRepository<IUserDoc>
+  extends MongoRepository<IUser>
   implements IUserRepository
 {
   constructor(
-    @Inject(ConstatantEnum.MONGO_CONNECTION) private readonly uDb: Db,
+    @Inject(ConstatantEnum.MONGO_CONNECTION) private readonly concreteDb: Db,
   ) {
-    super(EntityEnum.USERS, uDb);
+    super(EntityEnum.USERS, concreteDb);
   }
 }

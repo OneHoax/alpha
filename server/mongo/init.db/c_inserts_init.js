@@ -63,12 +63,12 @@ const trainerRole = db.roles.findOne({
 db.users.insertMany([
   {
     givenNames: "andres",
-    givenNames: "osorio",
+    lastNames: "osorio",
     governmentId: "12345",
     email: "andres@email.com",
     cellPhoneNumber: "123-345-6789",
     dob: new Date("1991-02-15"),
-    role: [
+    roles: [
       {
         $ref: "roles",
         $id: adminRole._id,
@@ -79,12 +79,12 @@ db.users.insertMany([
   },
   {
     givenNames: "mauro",
-    givenNames: "solano",
+    lastNames: "solano",
     governmentId: "812343",
     email: "mauro@email.com",
     cellPhoneNumber: "123-345-6789",
     dob: new Date("1989-05-11"),
-    role: [
+    roles: [
       {
         $ref: "roles",
         $id: trainerRole._id,

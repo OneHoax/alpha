@@ -1,9 +1,5 @@
 import { CreateUserDto } from "src/entity/users/dto/create-user.dto";
-import { UpdateUserDto } from "src/entity/users/dto/update-user.dto";
-import { IUserDoc } from "src/entity/users/interface/user-doc.interface";
 import { Inject, Injectable } from "@nestjs/common";
-import { Db, ObjectId } from "mongodb";
-import { UserMongoRepository } from "src/entity/users/respository/user-mongo.repository";
 import { IUserRepository } from "src/entity/users/interface/user.repostiroy.interface";
 import { ConstatantEnum } from "src/shared/enum/constant.enum";
 
@@ -22,7 +18,8 @@ export class UsersService {
     return this.userRepository.findAll();
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
+    const user = await this.userRepository.findOne(id);
     return this.userRepository.findOne(id);
   }
 
