@@ -9,8 +9,12 @@ import {
   Patch,
   Param,
   Delete,
+  ParseArrayPipe,
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { IUser } from "src/entity/users/interface/user.interface";
+import { IHttpResponse } from "src/shared/response/interface/http-response.interface";
+import { IRecordResponse } from "src/shared/response/interface/count-response.interface";
 
 const controllerName = "users";
 
@@ -19,28 +23,40 @@ const controllerName = "users";
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // @Post()
-  // create(@Body() createUserDto: CreateUserDto) {
-  //   return this.usersService.create(createUserDto);
-  // }
-
-  @Get()
-  findAll() {
-    return this.usersService.findAll();
-  }
-
   @Get(":id")
-  findOne(@Param("id") id: string) {
+  findOne(@Param("id") id: string): Promise<IHttpResponse<IUser>> {
     return this.usersService.findOne(id);
   }
 
-  // @Patch(":id")
-  // update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
-  //   return this.usersService.update(+id, updateUserDto);
-  // }
+  @Get("/many/:ids")
+  findMany(
+    @Param("ids", ParseArrayPipe) ids: string[],
+  ): Promise<IHttpResponse<IUser[]>> {
+    return this.usersService.findMany(ids);
+  }
 
-  // @Delete(":id")
-  // remove(@Param("id") id: string) {
-  //   return this.usersService.remove(+id);
-  // }
+  @Get()
+  findAll(): Promise<IHttpResponse<IUser[]>> {
+    return this.usersService.findAll();
+  }
+
+  @Post()
+  create(
+    @Body() createUserDto: CreateUserDto,
+  ): Promise<IHttpResponse<IRecordResponse>> {
+    return this.usersService.createOne(createUserDto);
+  }
+
+  @Patch(":id")
+  update(
+    @Param("id") id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<IHttpResponse<IRecordResponse>> {
+    return this.usersService.updateOne(id, updateUserDto);
+  }
+
+  @Delete(":id")
+  remove(@Param("id") id: string): Promise<IHttpResponse<IRecordResponse>> {
+    return this.usersService.deleteOne(id);
+  }
 }

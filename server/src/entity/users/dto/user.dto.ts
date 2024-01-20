@@ -4,6 +4,7 @@ import {
   IsDate,
   IsEmail,
   IsNotEmpty,
+  IsObject,
   IsString,
 } from "class-validator";
 import { IUser } from "src/entity/users/interface/user.interface";
@@ -65,20 +66,21 @@ export class UserDto implements IUser {
   })
   readonly cellPhoneNumber: string;
 
-  @IsDate()
+  @IsString()
   @IsNotEmpty()
   @ApiProperty({
     description: "Date of Birth",
-    type: Date,
+    type: String,
+    format: "date",
     example: new Date(),
   })
   readonly dob: Date;
 
-  @IsArray()
+  @IsObject()
   @IsNotEmpty()
   @ApiProperty({
     description: "Roles (Ids)",
-    type: Array,
+    type: Object,
     example: {
       $ref: "roles",
       $id: ["65aae89659e13409de0b1e10", "65aae89659e13409de0b1e11"],

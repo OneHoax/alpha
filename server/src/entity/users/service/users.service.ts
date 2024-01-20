@@ -11,7 +11,7 @@ import { IHttpResponse } from "src/shared/response/interface/http-response.inter
 import { IUser } from "src/entity/users/interface/user.interface";
 import { HttpMessageEnum } from "src/shared/response/enum/http-message.enum";
 import { UpdateUserDto } from "src/entity/users/dto/update-user.dto";
-import { ICountResponse } from "src/shared/response/interface/count-response.interface";
+import { IRecordResponse } from "src/shared/response/interface/count-response.interface";
 import { ActionResponseEnum } from "src/shared/response/enum/action-response.enum";
 
 @Injectable()
@@ -33,7 +33,7 @@ export class UsersService {
     };
   }
 
-  async findMany(ids: string[]): Promise<IHttpResponse<IUser>> {
+  async findMany(ids: string[]): Promise<IHttpResponse<IUser[]>> {
     const users = await this.userRepository.findMany(ids);
     return {
       data: users,
@@ -51,7 +51,9 @@ export class UsersService {
     };
   }
 
-  async createOne(createUserDto: CreateUserDto): Promise<IHttpResponse<IUser>> {
+  async createOne(
+    createUserDto: CreateUserDto,
+  ): Promise<IHttpResponse<IRecordResponse>> {
     const exists = await this.userRepository.findOneByGovIdOrEmail(
       createUserDto.governmentId,
       createUserDto.email,
@@ -59,10 +61,10 @@ export class UsersService {
 
     if (exists) throw new ConflictException(HttpMessageEnum.CONFLICT);
 
-    const user = await this.userRepository.createOne(createUserDto);
+    const userId = await this.userRepository.createOne(createUserDto);
 
     return {
-      data: user,
+      data: { records: userId, action: ActionResponseEnum.CREATED },
       success: true,
       message: HttpMessageEnum.CREATEAD,
     };
@@ -71,7 +73,7 @@ export class UsersService {
   async updateOne(
     id: string,
     updateUserDto: UpdateUserDto,
-  ): Promise<IHttpResponse<IUser>> {
+  ): Promise<IHttpResponse<IRecordResponse>> {
     const exists = await this.userRepository.findOneByGovIdOrEmail(
       updateUserDto.governmentId,
       updateUserDto.email,
@@ -79,16 +81,16 @@ export class UsersService {
 
     if (exists) throw new ConflictException(HttpMessageEnum.CONFLICT);
 
-    const user = await this.userRepository.updateOne(id, updateUserDto);
+    const updatedCount = await this.userRepository.updateOne(id, updateUserDto);
 
     return {
-      data: user,
+      data: { records: updatedCount, action: ActionResponseEnum.UPDATED },
       success: true,
       message: HttpMessageEnum.OK,
     };
   }
 
-  async deleteOne(id: string): Promise<IHttpResponse<ICountResponse>> {
+  async deleteOne(id: string): Promise<IHttpResponse<IRecordResponse>> {
     const exists = await this.userRepository.findOne(id);
 
     if (!exists) throw new NotFoundException(HttpMessageEnum.NOT_FOUND);

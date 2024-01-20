@@ -1,5 +1,7 @@
 import { Inject } from "@nestjs/common";
 import { Db } from "mongodb";
+import { CreateUserDto } from "src/entity/users/dto/create-user.dto";
+import { UpdateUserDto } from "src/entity/users/dto/update-user.dto";
 import { IUser } from "src/entity/users/interface/user.interface";
 import { IUserRepository } from "src/entity/users/interface/user.repostiroy.interface";
 import { EntityEnum } from "src/shared/entity/enum/entity.enum";
@@ -22,5 +24,10 @@ export class UserMongoRepository
       .collection(EntityEnum.USERS)
       .findOne({ $or: [{ governmentId: govId }, { email: email }] })
       .then(defaultTransform);
+  }
+
+  async createOne(createUserDto: Partial<IUser>): Promise<string> {
+    createUserDto = { ...createUserDto, dob: new Date(createUserDto.dob) };
+    return await super.createOne(createUserDto);
   }
 }
