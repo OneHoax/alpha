@@ -1,4 +1,4 @@
 export interface IRef {
   readonly $ref: string;
-  readonly $id: string;
+  readonly $id: string | string[];
 }

@@ -68,12 +68,10 @@ db.users.insertMany([
     email: "andres@email.com",
     cellPhoneNumber: "123-345-6789",
     dob: new Date("1991-02-15"),
-    roles: [
-      {
-        $ref: "roles",
-        $id: adminRole._id,
-      },
-    ],
+    roles: {
+      $ref: "roles",
+      $id: [adminRole._id, trainerRole._id],
+    },
     createdAt: new Date(),
     updatedAt: new Date(),
   },
@@ -84,12 +82,10 @@ db.users.insertMany([
     email: "mauro@email.com",
     cellPhoneNumber: "123-345-6789",
     dob: new Date("1989-05-11"),
-    roles: [
-      {
-        $ref: "roles",
-        $id: trainerRole._id,
-      },
-    ],
+    roles: {
+      $ref: "roles",
+      $id: [adminRole._id],
+    },
     createdAt: new Date(),
     updatedAt: new Date(),
   },

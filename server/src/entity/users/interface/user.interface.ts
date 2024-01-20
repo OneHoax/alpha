@@ -1,5 +1,5 @@
 import { IBase } from "src/shared/entity/interface/base.interface";
-import { IRef } from "src/shared/entity/interface/ref.interface";
+import { IRef } from "src/shared/mongo/interface/ref.interface";
 
 export interface IUser extends IBase {
   readonly givenNames: string;

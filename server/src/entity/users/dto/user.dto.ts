@@ -1,63 +1,106 @@
 import { ApiProperty } from "@nestjs/swagger";
 import {
+  IsArray,
   IsDate,
   IsEmail,
   IsNotEmpty,
-  IsObject,
   IsString,
 } from "class-validator";
 import { IUser } from "src/entity/users/interface/user.interface";
-import { IRef } from "src/shared/entity/interface/ref.interface";
+import { IRef } from "src/shared/mongo/interface/ref.interface";
 
 export class UserDto implements IUser {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
-  public readonly id: string;
+  @ApiProperty({
+    description: "Id",
+    type: String,
+    example: "65aae89659e13409de0b1e17",
+  })
+  readonly id: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
-  public readonly givenNames: string;
+  @ApiProperty({
+    description: "Given Names",
+    type: String,
+    example: "John",
+  })
+  readonly givenNames: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
-  public readonly lastNames: string;
+  @ApiProperty({
+    description: "Last Names",
+    type: String,
+    example: "Doe",
+  })
+  readonly lastNames: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
-  public readonly governmentId: string;
+  @ApiProperty({
+    description: "Government Id",
+    type: String,
+    example: "1088654789",
+  })
+  readonly governmentId: string;
 
   @IsString()
   @IsEmail()
   @IsNotEmpty()
-  @ApiProperty()
-  public readonly email: string;
+  @ApiProperty({
+    description: "Email",
+    type: String,
+    example: "john@email.com",
+  })
+  readonly email: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
-  public readonly cellPhoneNumber: string;
+  @ApiProperty({
+    description: "Cell Phone Number",
+    type: String,
+    example: "3156541298",
+  })
+  readonly cellPhoneNumber: string;
 
   @IsDate()
   @IsNotEmpty()
-  @ApiProperty()
-  public readonly dob: Date;
+  @ApiProperty({
+    description: "Date of Birth",
+    type: Date,
+    example: new Date(),
+  })
+  readonly dob: Date;
 
-  @IsObject()
+  @IsArray()
   @IsNotEmpty()
-  @ApiProperty()
-  public readonly roles: IRef[];
+  @ApiProperty({
+    description: "Roles (Ids)",
+    type: Array,
+    example: {
+      $ref: "roles",
+      $id: ["65aae89659e13409de0b1e10", "65aae89659e13409de0b1e11"],
+    },
+  })
+  readonly roles: IRef[];
 
   @IsDate()
   @IsNotEmpty()
-  @ApiProperty()
-  public readonly createdAt: Date;
+  @ApiProperty({
+    description: "Date of Record Creation",
+    type: Date,
+    example: new Date(),
+  })
+  readonly createdAt: Date;
 
   @IsDate()
   @IsNotEmpty()
-  @ApiProperty()
-  public readonly updatedAt: Date;
+  @ApiProperty({
+    description: "Date of Record Modification",
+    type: Date,
+    example: new Date(),
+  })
+  readonly updatedAt: Date;
 }
